@@ -7,14 +7,16 @@ import (
 	"github.com/go-chi/chi"
 )
 
-type RouteManager struct {
-	Routers map[string]router.Router
-}
+type RouteManager struct{}
 
 func (rm *RouteManager) Init(r *chi.Mux) {
 	handleStaticAssetsEndpoint(r)
+
 	homeRouter := router.HomeRouter{}
 	homeRouter.MapRoutes(r)
+
+	loginRouter := router.LoginRouter{}
+	loginRouter.MapRoutes(r)
 }
 
 const staticDir = "./src/static/"

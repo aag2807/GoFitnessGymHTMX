@@ -18,7 +18,7 @@ func (r *HomeRouter) MapRoutes(chiRouter *chi.Mux) {
 	r.renderer = utils.NewTemplateRenderer("src/templates")
 	r.renderer.LoadTemplates()
 
-	chiRouter.Get("/", func(w http.ResponseWriter, req *http.Request) {
+	chiRouter.Get("/home", func(w http.ResponseWriter, req *http.Request) {
 		w.Header().Add("Content-Type", "text/html")
 		err := r.renderer.RenderHTMLTemplate(w, "home.html", nil)
 		if err != nil {
