@@ -7,10 +7,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/htmx.org@1.9.9"></script>
     <script src="https://unpkg.com/htmx.org/dist/ext/response-targets.js"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/remove-me.js"></script>
+    <link rel="stylesheet" href="/static/css/global.css"></style>
     <title>GoGym</title>
 </head>
 <body>
-    <main class="flex flex-col min-w-screen min-h-screen bg-[#ECE9E9]">
+    <main class="flex flex-col min-w-screen min-h-screen bg-[#ECE9E9] relative">
+        <div class="fade-me-in mt-6 m-0 p-0 absolute right-[50%] translate-x-[50%]" id="errors" hx-ext="remove-me"> </div>
+        <div class="fade-me-in mt-6 m-0 p-0 absolute right-[50%] translate-x-[50%]" id="success" hx-ext="remove-me"> </div>
         {{ template "content" . }}
     </main>
 </body>

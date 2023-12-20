@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/GoGym/src/router"
+	"github.com/GoGym/src/utils"
 	"github.com/go-chi/chi"
 )
 
@@ -34,8 +35,11 @@ func ErrorCatcher(next http.Handler) http.Handler {
 		defer func() {
 			if err := recover(); err != nil {
 				log.Println("Recovered from error: " + fmt.Sprintf("%v", err))
-				w.WriteHeader(http.StatusInternalServerError)
-				http.Error(w, fmt.Sprintf("%v", err), http.StatusInternalServerError)
+				renderer := utils.NewPartialRenderer()
+				errorTemplate := renderer.GetTemplatePartialToRender("error-notification.html")
+				w.Header().Add("HX-Retarget", "#errors")
+				w.Header().Add("HX-Reswap", "innerHTML")
+				errorTemplate.Execute(w, utils.ResponseMessage{Message: fmt.Sprintf("%v", err)})
 			}
 		}()
 		next.ServeHTTP(w, r)

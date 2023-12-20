@@ -1,0 +1,7 @@
+*:not(body):not(main){
+    transition: all 0.2s ease-in-out;
+}
+
+.fade-me-in .htmx-added {
+    opacity: 0;
+}

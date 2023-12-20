@@ -1,7 +1,8 @@
 {{define "content"}}
+
 <section class="flex flex-row px-5 gap-5 flex-1">
     <div class="flex flex-col w-full h-full  justify-center items-center min-h-screen ">
-        <form hx-post="/login/user" hx-target-40*="#error-div" hx-swap="innerHTML settle:1s" class="text-[#1A1363] w-full max-w-[420px]">
+        <form hx-post="/login/user" class="text-[#1A1363] w-full max-w-[420px]">
             <fieldset class="flex flex-col">
                 <legend>
                     <h2 class="text-3xl font-bold mb-6">Sign-in</h2>
@@ -24,9 +25,7 @@
                 </div>
             </fieldset>
 
-            <div class="mt-6" id="error-div"></div>
-
-            <button type="submit" class="text-white bg-[#1A1363] w-full mt-6 py-4 rounded-3xl font-bold text-lg">
+            <button type="submit" class="hover:opacity-70 text-white bg-[#1A1363] w-full mt-6 py-4 rounded-3xl font-bold text-lg">
                 Login
             </button>
         </form>
@@ -35,4 +34,5 @@
         <img class="max-w-[520px] w-full block" src="/static/img/logo.png" alt="logo">
     </div>
 </section>
+
 {{end}}
