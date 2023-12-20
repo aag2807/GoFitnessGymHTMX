@@ -1,3 +1,5 @@
+github.com/aag2807/triplex-to-go v0.0.3 h1:D6c0ee7Pa2YJcTznL/VA2+MgI/7EifnK0omjhQQgztk=
+github.com/aag2807/triplex-to-go v0.0.3/go.mod h1:41LAcIrB/AR9AhTLUbcq2m3sSZgQnUNUTJ+QHsB2KWo=
 github.com/go-chi/chi v1.5.5 h1:vOB/HbEMt9QqBqErz07QehcOKHaWFtuj87tTDVz2qXE=
 github.com/go-chi/chi v1.5.5/go.mod h1:C9JqLr3tIYjDOZpzn+BCuxY8z8vmca43EeMgyZt7irw=
 github.com/go-chi/chi/v5 v5.0.10 h1:rLz5avzKpjqxrYwXNfmjkrYYXOyLJd37pz53UFHC6vk=
