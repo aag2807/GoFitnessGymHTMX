@@ -13,10 +13,17 @@ type DbContext struct {
 func NewDbContext() *DbContext {
 	dsn := "root:root@tcp(127.0.0.1:3306)/GoFitnessGym?charset=utf8mb4&parseTime=True&loc=Local"
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
-	db.AutoMigrate(&entities.User{})
+	migrateEntities(db)
+
 	if err != nil {
 		panic("failed to connect database")
 	}
 
-	return &DbContext{}
+	return &DbContext{
+		Db: db,
+	}
+}
+
+func migrateEntities(db *gorm.DB) {
+	db.AutoMigrate(&entities.User{})
 }
