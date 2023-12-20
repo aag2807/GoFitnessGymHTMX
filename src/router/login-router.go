@@ -35,10 +35,6 @@ func (r *LoginRouter) MapRoutes(chiRouter *chi.Mux) {
 		}
 	})
 
-	chiRouter.Post("/login/user", func(w http.ResponseWriter, req *http.Request) {
-		userController.Login(w, req)
-	})
-
 	chiRouter.Get("/forgot-password", func(w http.ResponseWriter, req *http.Request) {
 		w.Header().Add("Content-Type", "text/html")
 		w.Header().Add("cache-control", "max-age=120")
@@ -48,5 +44,9 @@ func (r *LoginRouter) MapRoutes(chiRouter *chi.Mux) {
 			http.Error(w, "Error rendering template", http.StatusInternalServerError)
 			return
 		}
+	})
+
+	chiRouter.Post("/login/user", func(w http.ResponseWriter, req *http.Request) {
+		userController.Login(w, req)
 	})
 }
