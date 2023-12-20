@@ -14,8 +14,9 @@ type UserRepository struct {
 }
 
 func NewUserRepository() *UserRepository {
-	dsn := "user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := "root:root@tcp(127.0.0.1:3306)/GoFitnessGym?charset=utf8mb4&parseTime=True&loc=Local"
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	db.AutoMigrate(&entities.User{})
 	if err != nil {
 		panic("failed to connect database")
 	}

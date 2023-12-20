@@ -14,5 +14,9 @@ func main() {
 	rm.Init(r)
 
 	log.Println("Server running on port 8080")
-	http.ListenAndServe(":8080", r)
+
+	err := http.ListenAndServe(":8080", r)
+	if http.ListenAndServe(":8080", r) != nil {
+		log.Fatal("Error running server " + err.Error())
+	}
 }

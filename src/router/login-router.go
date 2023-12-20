@@ -15,7 +15,7 @@ type LoginRouter struct {
 }
 
 func (r *LoginRouter) MapRoutes(chiRouter *chi.Mux) {
-	userController := controller.LoginController{}
+	userController := controller.NewLoginController()
 	r.renderer = utils.NewTemplateRenderer("src/templates")
 	r.renderer.LoadTemplates()
 
