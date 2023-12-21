@@ -20,7 +20,13 @@ func (r *LoginRouter) MapRoutes(chiRouter *chi.Mux) {
 	r.renderer.LoadTemplates()
 
 	chiRouter.Get("/", func(w http.ResponseWriter, req *http.Request) {
-		http.Redirect(w, req, "/login", http.StatusSeeOther)
+		session, _ := utils.GetSessionHandler().Session.Get(req, "x-go-session")
+		if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {
+			http.Redirect(w, req, "/login", http.StatusSeeOther)
+			return
+		}
+
+		http.Redirect(w, req, "/session/home", http.StatusSeeOther)
 	})
 
 	chiRouter.Get("/login", func(w http.ResponseWriter, req *http.Request) {
