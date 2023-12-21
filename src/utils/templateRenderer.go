@@ -90,3 +90,21 @@ func (tr *TemplateRenderer) loadAndExecuteTemplate(w http.ResponseWriter, tmplNa
 
 	return tmpl.Execute(w, data)
 }
+
+// loadAndExecuteTemplate loads and executes a template that isn't in the cache.
+func (tr *TemplateRenderer) LoadAndExecuteTemplateWithDashboardLayout(w http.ResponseWriter, tmplName string, data interface{}) error {
+	tr.mu.Lock()
+	defer tr.mu.Unlock()
+
+	tmplPath := filepath.Join(tr.templatesDir, tmplName)
+	layoutPath := filepath.Join(tr.templatesDir, "dashboard-layout.html")
+	files := []string{layoutPath, tmplPath}
+
+	tmpl, err := template.ParseFiles(files...)
+	if err != nil {
+		log.Println("Error parsing templates:", err)
+		return err
+	}
+
+	return tmpl.Execute(w, data)
+}

@@ -35,8 +35,17 @@ func (c *LoginController) Login(w http.ResponseWriter, req *http.Request) {
 	if valid, err := c.userService.Login(email, password); err != nil {
 		panic(err)
 	} else if valid {
+		utils.SetUserSession(w, req)
 		w.Header().Add("HX-Reswap", "none")
-		w.Header().Add("HX-Redirect", "/home")
+		w.Header().Add("HX-Redirect", "/session/home")
 		w.WriteHeader(http.StatusSeeOther)
 	}
+}
+
+// Logout logouts hte user
+func (c *LoginController) Logout(w http.ResponseWriter, req *http.Request) {
+	utils.ClearUserSession(w, req)
+	w.Header().Add("HX-Reswap", "none")
+	w.Header().Add("HX-Redirect", "/")
+	w.WriteHeader(http.StatusSeeOther)
 }

@@ -18,13 +18,15 @@ func (r *HomeRouter) MapRoutes(chiRouter *chi.Mux) {
 	r.renderer = utils.NewTemplateRenderer("src/templates")
 	r.renderer.LoadTemplates()
 
-	chiRouter.Get("/home", func(w http.ResponseWriter, req *http.Request) {
-		w.Header().Add("Content-Type", "text/html")
-		err := r.renderer.RenderHTMLTemplate(w, "home.html", nil)
-		if err != nil {
-			fmt.Println(err)
-			http.Error(w, "Error rendering template", http.StatusInternalServerError)
-			return
-		}
+	chiRouter.Route("/session", func(chiRouter chi.Router) {
+		chiRouter.Get("/home", func(w http.ResponseWriter, req *http.Request) {
+			w.Header().Add("Content-Type", "text/html")
+			err := r.renderer.LoadAndExecuteTemplateWithDashboardLayout(w, "home.html", nil)
+			if err != nil {
+				fmt.Println(err)
+				http.Error(w, "Error rendering template", http.StatusInternalServerError)
+				return
+			}
+		})
 	})
 }

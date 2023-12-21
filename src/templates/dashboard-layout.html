@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/static/img/favicon.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.9"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/response-targets.js"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/remove-me.js"></script>
+    <script src="https://kit.fontawesome.com/1a921e69f5.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/static/css/global.css">
+    </style>
+    <title>GoFitnessGym</title>
+</head>
+
+<body>
+    <main class="flex flex-row min-w-screen min-h-screen bg-[#ECE9E9] relative">
+        <div class="fade-me-in mt-6 m-0 p-0 absolute right-[50%] translate-x-[50%]" id="errors" hx-ext="remove-me">
+        </div>
+        <div class="fade-me-in mt-6 m-0 p-0 absolute right-[50%] translate-x-[50%]" id="success" hx-ext="remove-me">
+        </div>
+
+        <aside aria-role="sidebar" class="min-h-screen min-w-[225px] bg-[#1A1363] flex flex-col py-[2rem] items-center">
+            <div class="flex flex-col gap-4 items-center h-full">
+                <div
+                    class="flex items-center justify-center border border-4 border-white py-5 px-6 bg-transparent rounded-full max-w-[fit-content]">
+                    <i class="fa-solid fa-user text-white text-3xl"></i>
+                </div>
+
+                <p class="flex flex-col gap-2 text-white text-center">
+                    <span class="text-lg font-bold ">Administrator Name</span>
+                    <span class="font-light text-xs">juan.delacruz@gmail.com</span>
+                </p>
+
+                <ul class="h-full w-[170px] text-white pt-3 gap-4 flex flex-col">
+                    <li class="flex items-center justify-start hover:opacity-70 p-0 text-start cursor-pointer">
+                        <p><i class="fa-regular fa-window-maximize"></i> <a href="#" class="ms-2">Dashboard</a> </p>
+                    </li>
+
+                    <li class="flex items-center justify-start hover:opacity-70 p-0 text-start cursor-pointer">
+                        <p><i class="fa-solid fa-house"></i> <a href="#" class="ms-2">Admin Profile</a> </p>
+                    </li>
+
+                    <li class="flex items-center justify-start hover:opacity-70 p-0 text-start cursor-pointer">
+                        <p><i class="fa-solid fa-pen-to-square"></i> <a href="#" class="ms-2">Registration</a> </p>
+                    </li>
+
+                    <li class="flex items-center justify-start hover:opacity-70 p-0 text-start cursor-pointer">
+                        <p><i class="fa-solid fa-book"></i> <a href="#" class="ms-2">Plan</a> </p>
+                    </li>
+
+                    <li class="flex items-center justify-start hover:opacity-70 p-0 text-start cursor-pointer">
+                        <p> <i class="fa-regular fa-credit-card"></i> <a href="#" class="ms-2">Payment</a> </p>
+                    </li>
+
+                    <li class="flex items-center justify-start hover:opacity-70 p-0 text-start cursor-pointer">
+                        <p> <i class="fa-regular fa-credit-card"></i> <a href="#" class="ms-2">Inventory</a> </p>
+                    </li>
+
+                    <li class="flex items-center justify-start hover:opacity-70 p-0 text-start cursor-pointer">
+                        <p> <i class="fa-solid fa-user-pen"></i> <a href="#" class="ms-2">View Members</a> </p>
+                    </li>
+
+                    <li class="flex items-center justify-start hover:opacity-70 p-0 text-start cursor-pointer">
+                        <p> <i class="fa-solid fa-weight-hanging"></i> <a href="#" class="ms-2">Coaches</a> </p>
+                    </li>
+
+                    <li class="flex items-center justify-start hover:opacity-70 p-0 text-start cursor-pointer">
+                        <p> <i class="fa-solid fa-chart-simple"></i> <a href="#" class="ms-2">Reports</a> </p>
+                    </li>
+
+                    <li class="flex items-center justify-start hover:opacity-70 p-0 text-start cursor-pointer mt-auto">
+                        <p hx-get="/logout/user">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i> <span class="ms-2">Logout</span>
+                        </p>
+                    </li>
+
+                </ul>
+            </div>
+        </aside>
+
+        <section aria-role="content body" class="flex flex-col px-3 md:px-6 lg:px-10 py-5">
+            {{ template "content" . }}
+        </section>
+    </main>
+</body>
+
+</html>

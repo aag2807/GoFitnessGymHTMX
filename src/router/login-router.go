@@ -49,4 +49,8 @@ func (r *LoginRouter) MapRoutes(chiRouter *chi.Mux) {
 	chiRouter.Post("/login/user", func(w http.ResponseWriter, req *http.Request) {
 		userController.Login(w, req)
 	})
+
+	chiRouter.Get("/logout/user", func(w http.ResponseWriter, req *http.Request) {
+		userController.Logout(w, req)
+	})
 }
