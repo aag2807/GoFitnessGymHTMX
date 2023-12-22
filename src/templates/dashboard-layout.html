@@ -15,7 +15,7 @@
     <title>GoFitnessGym</title>
 </head>
 
-<body>
+<body hx-boost="true">
     <main class="flex flex-row min-w-screen min-h-screen bg-[#ECE9E9] relative">
         <div class="fade-me-in mt-6 m-0 p-0 absolute right-[50%] translate-x-[50%]" id="errors" hx-ext="remove-me"></div>
         <div class="fade-me-in mt-6 m-0 p-0 absolute right-[50%] translate-x-[50%]" id="success" hx-ext="remove-me"></div>
@@ -79,7 +79,7 @@
             </div>
         </aside>
 
-        <section aria-role="content body" class="flex flex-col px-3 md:px-6 lg:px-10 py-5">
+        <section aria-role="content body" class="flex flex-col px-3 md:px-6 lg:px-10 py-5 w-full">
             {{ template "content" . }}
         </section>
     </main>

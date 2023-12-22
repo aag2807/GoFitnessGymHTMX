@@ -22,7 +22,7 @@ func GetSessionHandler() *SessionHandler {
 
 func SetUserSession(w http.ResponseWriter, r *http.Request) {
 	session, _ := GetSessionHandler().Session.Get(r, "x-go-session")
-
+	session.Options = &sessions.Options{MaxAge: 216000}
 	session.Values["authenticated"] = true
 	session.Save(r, w)
 }
