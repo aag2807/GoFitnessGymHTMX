@@ -16,6 +16,8 @@ type RouteManager struct{}
 func (rm *RouteManager) Init(r *chi.Mux) {
 	r.Use(ErrorCatcher)
 	r.Use(SessionVerifier)
+	r.Use(VerifyIsHTMXCall)
+
 	handleStaticAssetsEndpoint(r)
 
 	homeRouter := router.HomeRouter{}
@@ -50,22 +52,36 @@ func ErrorCatcher(next http.Handler) http.Handler {
 
 func SessionVerifier(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		session, err := utils.GetSessionHandler().Session.Get(r, "x-go-session")
-		log.Println(session.Values["authenticated"])
+		// session, err := utils.GetSessionHandler().Session.Get(r, "x-go-session")
+		// if err != nil {
+		// 	panic(err)
+		// }
 
-		if err != nil {
-			panic(err)
-		}
-
-		if strings.Contains(r.URL.Path, "/session") {
-			if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {
-				http.Error(w, "Forbidden", http.StatusForbidden)
-				return
-			}
-
-			log.Println("Session is valid")
-		}
+		// // if strings.Contains(r.URL.Path, "/session") {
+		// // 	if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {
+		// // 		http.Error(w, "Forbidden", http.StatusForbidden)
+		// // 		return
+		// // 	}
+		// // }
 
 		next.ServeHTTP(w, r)
+	})
+}
+
+func VerifyIsHTMXCall(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		route := r.URL.Path
+		log.Println("calling route: " + r.URL.Path)
+		if r.Header.Get("HX-Request") != "" {
+			next.ServeHTTP(w, r)
+		} else if strings.Contains(route, "/static") {
+			next.ServeHTTP(w, r)
+		} else if strings.Contains(route, "/session") && strings.Contains(route, "/home") && !strings.Contains(route, "/page") {
+			next.ServeHTTP(w, r)
+		} else if strings.Contains(route, "/session") && r.Header.Get("HX-Request") == "" {
+			http.Redirect(w, r, "/session/home", http.StatusSeeOther)
+		} else {
+			next.ServeHTTP(w, r)
+		}
 	})
 }

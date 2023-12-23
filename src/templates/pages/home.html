@@ -1,0 +1,47 @@
+{{define "content"}}
+<div class="w-full h-full flex flex-col">
+    <div class="flex flex-col lg:flex-row w-full gap-5">
+        <!-- FIRST COLUMN -->
+        <div class="flex flex-col w-full gap-3">
+            <div class="w-full max-w-[none] lg:max-w-[700px] rounded-lg bg-white shadow-lg flex justify-center py-3"data-role="welcome card">
+                <div class="flex p-4 justify-center">
+                    <div class="flex flex-col w-full px-1 max-w-[400px]">
+                        <h4 class="text-[#2B2B2B] text-2xl mb-3">Welcome Banner,
+                            <span class="font-bold text-[#1A1363]">Martell</span>
+                        </h4>
+                        <p class="text-[#2B2B2B] font-light max-w-[300px]">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua.
+                        </p>
+                    </div>
+                    <div class="flex flex-col justify-center items-center">
+                        <div class="w-[70px] h-[70px] rounded-full bg-[#1A1363] block"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full max-w-[none] flex flex-col lg:flex-row lg:max-w-[700px] gap-4 ">
+                <div class="w-full min-w-[320px] rounded-lg bg-white shadow-lg flex flex-col justify-center py-3 min-h-[280px]"data-role="Coaches card">
+                </div>
+                <div class="w-full min-w-[320px] rounded-lg bg-white shadow-lg flex flex-col justify-center py-3 min-h-[240px]" data-role="Sales card">
+                </div>
+            </div>
+
+            <div class="w-full max-w-[none] flex flex-col lg:max-w-[700px]">
+                <h4 class="text-2xl font-bold text-[#1A1363] mb-1 ps-2">Active Members</h4>
+                <div class="w-full min-w-[320px] rounded-lg bg-[#74789B] shadow-lg flex flex-col justify-center py-3 min-h-[280px]"data-role="Coaches card">
+                </div>
+            </div>
+        </div>
+
+        <!-- SECOND COLUMN -->
+        <div class="flex flex-col gap-[2rem] ">
+            <div class="min-w-[320px] rounded-lg bg-white shadow-lg flex flex-col justify-center py-3 min-h-[240px]" data-role="calendar card">
+            </div>
+
+            <div class="min-w-[320px] rounded-lg bg-white shadow-lg flex flex-col justify-center py-3 min-h-[280px]" data-role="calendar card">
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}

@@ -11,14 +11,15 @@
     <script src="https://unpkg.com/htmx.org/dist/ext/remove-me.js"></script>
     <script src="https://kit.fontawesome.com/1a921e69f5.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/static/css/global.css">
-    </style>
     <title>GoFitnessGym</title>
 </head>
 
 <body hx-boost="true">
     <main class="flex flex-row min-w-screen min-h-screen bg-[#ECE9E9] relative">
-        <div class="fade-me-in mt-6 m-0 p-0 absolute right-[50%] translate-x-[50%]" id="errors" hx-ext="remove-me"></div>
-        <div class="fade-me-in mt-6 m-0 p-0 absolute right-[50%] translate-x-[50%]" id="success" hx-ext="remove-me"></div>
+        <div class="fade-me-in mt-6 m-0 p-0 absolute right-[50%] translate-x-[50%]" id="errors" hx-ext="remove-me">
+        </div>
+        <div class="fade-me-in mt-6 m-0 p-0 absolute right-[50%] translate-x-[50%]" id="success" hx-ext="remove-me">
+        </div>
 
         <aside aria-role="sidebar" class="min-h-screen min-w-[225px] bg-[#1A1363] flex flex-col py-[2rem] items-center">
             <div class="flex flex-col gap-4 items-center h-full">
@@ -34,39 +35,66 @@
 
                 <ul class="h-full w-[170px] text-white pt-3 gap-4 flex flex-col">
                     <li class="flex items-center justify-start hover:opacity-70 p-0 text-start cursor-pointer">
-                        <p><i class="fa-regular fa-window-maximize"></i> <a href="#" class="ms-2">Dashboard</a> </p>
+                        <a hx-push-url="true" href="/session/home" hx-target="body">
+                            <i class="fa-regular fa-window-maximize"></i>
+                            <span class="ms-2">Dashboard</span>
+                        </a>
                     </li>
 
                     <li class="flex items-center justify-start hover:opacity-70 p-0 text-start cursor-pointer">
-                        <p><i class="fa-solid fa-house"></i> <a href="#" class="ms-2">Admin Profile</a> </p>
+                        <a hx-push-url="true" href="/session/admin-profile" hx-target="body">
+                            <i class="fa-solid fa-house"></i>
+                            <span class="ms-2">Admin Profile</span>
+                        </a>
                     </li>
 
                     <li class="flex items-center justify-start hover:opacity-70 p-0 text-start cursor-pointer">
-                        <p><i class="fa-solid fa-pen-to-square"></i> <a href="#" class="ms-2">Registration</a> </p>
+                        <a hx-push-url="true" href="/session/registration" hx-target="body">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            <span class="ms-2">Registration</span>
+                        </a>
                     </li>
 
                     <li class="flex items-center justify-start hover:opacity-70 p-0 text-start cursor-pointer">
-                        <p><i class="fa-solid fa-book"></i> <a href="#" class="ms-2">Plan</a> </p>
+                        <a hx-push-url="true" href="/session/plans" hx-target="body">
+                            <i class="fa-solid fa-book"></i>
+                            <span class="ms-2">Plans</span>
+                        </a>
                     </li>
 
                     <li class="flex items-center justify-start hover:opacity-70 p-0 text-start cursor-pointer">
-                        <p> <i class="fa-regular fa-credit-card"></i> <a href="#" class="ms-2">Payment</a> </p>
+                        <a hx-push-url="true" href="/session/payment" hx-target="body">
+                            <i class="fa-regular fa-credit-card"></i>
+                            <span class="ms-2">Payment</span>
+                        </a>
                     </li>
 
                     <li class="flex items-center justify-start hover:opacity-70 p-0 text-start cursor-pointer">
-                        <p> <i class="fa-regular fa-credit-card"></i> <a href="#" class="ms-2">Inventory</a> </p>
+                        <a hx-push-url="true" href="/session/inventory" hx-target="body">
+                            <i class="fa-solid fa-box-archive"></i>
+                            <span class="ms-2">Inventory</span>
+                        </a>
                     </li>
 
                     <li class="flex items-center justify-start hover:opacity-70 p-0 text-start cursor-pointer">
-                        <p> <i class="fa-solid fa-user-pen"></i> <a href="#" class="ms-2">View Members</a> </p>
+                        <a hx-push-url="true" href="/session/members" hx-target="body">
+                            <i class="fa-solid fa-user-pen"></i>
+                            <span class="ms-2">View Members</span>
+                        </a>
                     </li>
 
                     <li class="flex items-center justify-start hover:opacity-70 p-0 text-start cursor-pointer">
-                        <p> <i class="fa-solid fa-weight-hanging"></i> <a href="#" class="ms-2">Coaches</a> </p>
+                        <a hx-push-url="true" href="/session/coaches" hx-target="body">
+                            <i class="fa-solid fa-weight-hanging"></i>
+                            <span class="ms-2">Coaches</span>
+                        </a>
                     </li>
 
                     <li class="flex items-center justify-start hover:opacity-70 p-0 text-start cursor-pointer">
-                        <p> <i class="fa-solid fa-chart-simple"></i> <a href="#" class="ms-2">Reports</a> </p>
+                        <a hx-push-url="true" href="/session/reports" hx-target="body">
+                            <i class="fa-solid fa-chart-simple"></i>
+                            <span class="ms-2">Reports</span>
+                        </a>
                     </li>
 
                     <li class="flex items-center justify-start hover:opacity-70 p-0 text-start cursor-pointer mt-auto">
@@ -79,8 +107,22 @@
             </div>
         </aside>
 
-        <section aria-role="content body" class="flex flex-col px-3 md:px-6 lg:px-10 py-5 w-full">
-            {{ template "content" . }}
+        <section aria-role="content body" class="flex flex-col px-3 py-5 w-full mt-5">
+            <nav class="flex flex-row items-center w-full">
+                <div id="logo-container" class="flex translate-y-[-20px] items-center font-normal">
+                    <h3 class="text-4xl text-[#1A1363]">Stamina Fitness</h3>
+                </div>
+
+                <div class="flex items-center ms-auto text-[#1A1363] text-lg gap-2 md:gap-4 lg:gap-[2rem]">
+                    <a class="hover:opacity-70 cursor-pointer capitalize">feedback</a>
+                    <i class="fa-solid fa-bell block hover:opacity-70 cursor-pointer"></i>
+                </div>
+            </nav>
+
+
+            <section id="content" aria-role="content body" class="flex flex-col w-full">
+                {{ template "content" . }}
+            </section>
         </section>
     </main>
 </body>
