@@ -2,7 +2,7 @@
 
 <section class="flex flex-row px-5 gap-5 flex-1">
     <div class="flex flex-col w-full h-full  justify-center items-center min-h-screen ">
-        <form hx-post="/login/user" class="text-[#1A1363] w-full max-w-[420px]">
+        <div class="text-[#1A1363] w-full max-w-[420px]">
             <fieldset class="flex flex-col">
                 <legend>
                     <h2 class="text-3xl font-bold mb-6">Sign-in</h2>
@@ -20,15 +20,20 @@
                         <label for="remember">Remember me</label>
                     </div>
                     <div class="">
-                        <a href="/forgot-password">Forgot password?</a>
+                        <a class="hover:opacity-70" href="/forgot-password">Forgot password?</a> <br>
+                        <a class="hover:opacity-70" href="/sign-up">Sign Up</a>
                     </div>
                 </div>
             </fieldset>
 
-            <button type="submit" class="hover:opacity-70 text-white bg-[#1A1363] w-full mt-6 py-4 rounded-3xl font-bold text-lg">
+            <button
+                hx-post="/login/user" hx-swap="show:none" hx-target="none"
+                type="submit"
+                class="hover:opacity-70 text-white bg-[#1A1363] w-full mt-6 py-4 rounded-3xl font-bold text-lg"
+            >
                 Login
             </button>
-        </form>
+        </div>
     </div>
     <div class="hidden md:flex flex-col justify-center items-center w-full h-full min-h-screen">
         <img class="max-w-[520px] w-full block" src="/static/img/logo.png" alt="logo">

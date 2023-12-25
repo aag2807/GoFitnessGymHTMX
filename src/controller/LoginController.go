@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/GoGym/src/domain/service"
@@ -9,18 +11,20 @@ import (
 )
 
 type LoginController struct {
-	Arguments   lib.Arguments
-	State       lib.State
-	Renderer    *utils.PartialRenderer
-	userService *service.LoginService
+	Arguments    lib.Arguments
+	State        lib.State
+	Renderer     *utils.PartialRenderer
+	userService  *service.LoginService
+	pageRenderer *utils.TemplateRenderer
 }
 
 func NewLoginController() *LoginController {
 	return &LoginController{
-		Arguments:   lib.Arguments{},
-		State:       lib.State{},
-		Renderer:    utils.NewPartialRenderer(),
-		userService: service.NewLoginService(),
+		Arguments:    lib.Arguments{},
+		State:        lib.State{},
+		Renderer:     utils.NewPartialRenderer(),
+		userService:  service.NewLoginService(),
+		pageRenderer: utils.NewTemplateRenderer("src/templates"),
 	}
 }
 
@@ -38,7 +42,6 @@ func (c *LoginController) Login(w http.ResponseWriter, req *http.Request) {
 		utils.SetUserSession(w, req)
 		w.Header().Add("HX-Reswap", "none")
 		w.Header().Add("HX-Redirect", "/session/home")
-		w.WriteHeader(http.StatusSeeOther)
 	}
 }
 
@@ -48,4 +51,63 @@ func (c *LoginController) Logout(w http.ResponseWriter, req *http.Request) {
 	w.Header().Add("HX-Reswap", "none")
 	w.Header().Add("HX-Redirect", "/")
 	w.WriteHeader(http.StatusSeeOther)
+}
+
+func (c *LoginController) RenderLoginPage(w http.ResponseWriter, req *http.Request) {
+	w.Header().Add("Content-Type", "text/html")
+	w.Header().Add("cache-control", "max-age=120")
+
+	err := c.pageRenderer.RenderHTMLTemplate(w, "login.html", nil)
+	if err != nil {
+		fmt.Println(err)
+		http.Error(w, "Error rendering template", http.StatusInternalServerError)
+		return
+	}
+}
+
+func (c *LoginController) RenderForgotPasswordPage(w http.ResponseWriter, req *http.Request) {
+	w.Header().Add("Content-Type", "text/html")
+	w.Header().Add("cache-control", "max-age=120")
+	err := c.pageRenderer.RenderHTMLTemplate(w, "forgot-password.html", nil)
+	if err != nil {
+		fmt.Println(err)
+		http.Error(w, "Error rendering template", http.StatusInternalServerError)
+		return
+	}
+}
+
+func (c *LoginController) HandleIndexPageRedirection(w http.ResponseWriter, req *http.Request) {
+	session, _ := utils.GetSessionHandler().Session.Get(req, "x-go-session")
+	if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {
+		http.Redirect(w, req, "/login", http.StatusSeeOther)
+		return
+	}
+
+	http.Redirect(w, req, "/session/home", http.StatusSeeOther)
+}
+
+func (c *LoginController) RenderSignUpPage(w http.ResponseWriter, req *http.Request) {
+	w.Header().Add("Content-Type", "text/html")
+	w.Header().Add("cache-control", "max-age=120")
+	err := c.pageRenderer.RenderHTMLTemplate(w, "sign-up.html", nil)
+	if err != nil {
+		fmt.Println(err)
+		http.Error(w, "Error rendering template", http.StatusInternalServerError)
+		return
+	}
+}
+
+func (c *LoginController) SignUp(w http.ResponseWriter, req *http.Request) {
+	req.ParseForm()
+	username := req.FormValue("username")
+	email := req.FormValue("email")
+	password := req.FormValue("password")
+	retypePassword := req.FormValue("retypePassword")
+
+	c.Arguments.NotWhiteSpace(username, "username cannot be empty")
+	c.Arguments.NotWhiteSpace(email, "email cannot be empty")
+	c.Arguments.NotWhiteSpace(password, "password cannot be empty")
+	c.Arguments.NotWhiteSpace(retypePassword, "retypePassword cannot be empty")
+
+	log.Println(username, email, password, retypePassword)
 }
