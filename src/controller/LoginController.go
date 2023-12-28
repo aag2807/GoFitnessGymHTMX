@@ -39,18 +39,16 @@ func (c *LoginController) Login(w http.ResponseWriter, req *http.Request) {
 	if valid, err := c.userService.Login(email, password); err != nil {
 		panic(err)
 	} else if valid {
-		utils.SetUserSession(w, req)
-		w.Header().Add("HX-Reswap", "none")
-		w.Header().Add("HX-Redirect", "/session/home")
+		user, _ := c.userService.GetUserByEmail(email)
+		utils.SetUserSession(w, req, user)
+		http.Redirect(w, req, "/session/home", http.StatusSeeOther)
 	}
 }
 
 // Logout logouts hte user
 func (c *LoginController) Logout(w http.ResponseWriter, req *http.Request) {
 	utils.ClearUserSession(w, req)
-	w.Header().Add("HX-Reswap", "none")
-	w.Header().Add("HX-Redirect", "/")
-	w.WriteHeader(http.StatusSeeOther)
+	http.Redirect(w, req, "/", http.StatusSeeOther)
 }
 
 func (c *LoginController) RenderLoginPage(w http.ResponseWriter, req *http.Request) {
@@ -77,7 +75,8 @@ func (c *LoginController) RenderForgotPasswordPage(w http.ResponseWriter, req *h
 }
 
 func (c *LoginController) HandleIndexPageRedirection(w http.ResponseWriter, req *http.Request) {
-	session, _ := utils.GetSessionHandler().Session.Get(req, "x-go-session")
+	session := utils.GetUserSession(req)
+	log.Println(session.Values, " in index redirection")
 	if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {
 		http.Redirect(w, req, "/login", http.StatusSeeOther)
 		return

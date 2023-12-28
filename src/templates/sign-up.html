@@ -2,7 +2,7 @@
 
 <section class="flex flex-row px-5 gap-5 flex-1">
     <div class="flex flex-col w-full h-full  justify-center items-center min-h-screen ">
-        <form hx-post="/sign-up/user" hx-swap="none" class="text-[#1A1363] w-full max-w-[420px]">
+        <div  class="text-[#1A1363] w-full max-w-[420px]">
             <fieldset class="flex flex-col">
                 <legend>
                     <h2 class="text-3xl font-bold mb-6">Sign-Up</h2>
@@ -39,15 +39,16 @@
                     id="retypePassword">
 
                     <div class="">
-                        <a class="hover:opacity-70" href="/login">I Already have an account</a>
+                        <a class="hover:opacity-70" hx-boost="true" hx-push-url="true" href="/login">I Already have an account</a>
                     </div>
             </fieldset>
 
-            <button type="submit"
+            <button
+                hx-post="/sign-up/user"
                 class="hover:opacity-70 text-white bg-[#1A1363] w-full mt-6 py-4 rounded-3xl font-bold text-lg">
                 Sign Up
             </button>
-        </form>
+        </div>
     </div>
     <div class="hidden md:flex flex-col justify-center items-center w-full h-full min-h-screen">
         <img class="max-w-[520px] w-full block" src="/static/img/logo.png" alt="logo">

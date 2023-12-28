@@ -52,6 +52,7 @@ func ErrorCatcher(next http.Handler) http.Handler {
 
 func SessionVerifier(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		log.Println(r.URL)
 		// session, err := utils.GetSessionHandler().Session.Get(r, "x-go-session")
 		// if err != nil {
 		// 	panic(err)
@@ -71,7 +72,6 @@ func SessionVerifier(next http.Handler) http.Handler {
 func VerifyIsHTMXCall(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		route := r.URL.Path
-		log.Println("calling route: " + r.URL.Path)
 		if r.Header.Get("HX-Request") != "" {
 			next.ServeHTTP(w, r)
 		} else if strings.Contains(route, "/static") {

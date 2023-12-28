@@ -66,7 +66,6 @@ func (tr *TemplateRenderer) RenderHTMLTemplate(w http.ResponseWriter, tmplName s
 	tr.mu.RUnlock()
 
 	if !ok {
-		log.Println("Template not found in cache:", tmplName)
 		return tr.loadAndExecuteTemplate(w, tmplName, data)
 	}
 

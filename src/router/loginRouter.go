@@ -28,7 +28,7 @@ func (r *LoginRouter) MapRoutes(chiRouter *chi.Mux) {
 		loginController.RenderForgotPasswordPage(w, req)
 	})
 
-	chiRouter.Post("/login/user", func(w http.ResponseWriter, req *http.Request) {
+	chiRouter.Get("/login/user", func(w http.ResponseWriter, req *http.Request) {
 		loginController.Login(w, req)
 	})
 

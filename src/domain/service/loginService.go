@@ -2,6 +2,7 @@ package service
 
 import (
 	"github.com/GoGym/src/boundary/persistance"
+	entities "github.com/GoGym/src/domain/entities/user"
 	lib "github.com/aag2807/triplex-to-go"
 )
 
@@ -28,4 +29,12 @@ func (ls *LoginService) Login(email string, password string) (bool, error) {
 	ls.state.IsTrue(user.Password == password, "Invalid Credentials")
 
 	return true, nil
+}
+
+func (ls *LoginService) GetUserByEmail(email string) (entities.User, error) {
+	return ls.userRepository.GetUserByEmail(email)
+}
+
+func (ls *LoginService) GetUserByID(ID int) (entities.User, error) {
+	return ls.userRepository.GetUserByID(ID)
 }

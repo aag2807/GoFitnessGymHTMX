@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	entities "github.com/GoGym/src/domain/entities/user"
 	"github.com/gorilla/sessions"
 )
 
@@ -27,16 +28,18 @@ func GetSessionHandler() *SessionHandler {
 	return &SessionHandler{Session: session}
 }
 
-func SetUserSession(w http.ResponseWriter, r *http.Request) {
+func SetUserSession(w http.ResponseWriter, r *http.Request, u entities.User) {
 	session := GetUserSession(r)
-	session.Options = &sessions.Options{MaxAge: 216000}
+	session.Options = &sessions.Options{}
 	session.Values["authenticated"] = true
+	session.Values["userId"] = u.ID
 	session.Save(r, w)
 }
 
 func ClearUserSession(w http.ResponseWriter, r *http.Request) {
 	session := GetUserSession(r)
 	session.Values["authenticated"] = false
+	session.Values["userId"] = 0
 	session.Save(r, w)
 }
 

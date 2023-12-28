@@ -30,3 +30,15 @@ func (ur *UserRepository) GetUserByEmail(email string) (entities.User, error) {
 
 	return user, nil
 }
+
+func (ur *UserRepository) GetUserByID(id int) (entities.User, error) {
+	user := entities.User{}
+	result := ur.Context.Db.Where("id = ?", id).First(&user)
+	if result.Error != nil {
+		return entities.User{}, result.Error
+	}
+
+	ur.Arguments.NotNil(user, "User not found")
+
+	return user, nil
+}
